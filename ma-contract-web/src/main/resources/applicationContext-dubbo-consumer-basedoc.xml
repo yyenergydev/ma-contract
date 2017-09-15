@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd 
+      http://code.alibabatech.com/schema/dubbo
+      http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	 
+	<dubbo:reference interface="com.yonyou.yuncai.cpu.basedoc.api.person.IPersonService" id="personService" group="${dubbo.basedoc.group}" check="false" retries="0" timeout="50000" filter="logcontext"/>
+	<dubbo:reference interface="com.yonyou.yuncai.cpu.basedoc.api.organization.IOrganizationService" id="iOrganizationService" group="${dubbo.basedoc.group}" check="false" retries="0" timeout="50000" filter="logcontext"/>
+    <dubbo:reference interface="com.yonyou.yuncai.cpu.basedoc.api.supplydocument.ISupplyDocService" id="supplyDocService" group="${dubbo.basedoc.group}" check="false" retries="0" timeout="50000" filter="logcontext"/>
+
+
+</beans>

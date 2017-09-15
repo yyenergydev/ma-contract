@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ma-contract.iml" filepath="$PROJECT_DIR$/ma-contract.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ma-contract-api/ma-contract-api.iml" filepath="$PROJECT_DIR$/ma-contract-api/ma-contract-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ma-contract-dao/ma-contract-dao.iml" filepath="$PROJECT_DIR$/ma-contract-dao/ma-contract-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ma-contract-domain/ma-contract-domain.iml" filepath="$PROJECT_DIR$/ma-contract-domain/ma-contract-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ma-contract-service/ma-contract-service.iml" filepath="$PROJECT_DIR$/ma-contract-service/ma-contract-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ma-contract-web/ma-contract-web.iml" filepath="$PROJECT_DIR$/ma-contract-web/ma-contract-web.iml" />
+    </modules>
+  </component>
+</project>

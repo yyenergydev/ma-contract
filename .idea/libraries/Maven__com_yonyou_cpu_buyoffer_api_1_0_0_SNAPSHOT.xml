@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.yonyou:cpu-buyoffer-api:1.0.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/yonyou/cpu-buyoffer-api/1.0.0-SNAPSHOT/cpu-buyoffer-api-1.0.0-20170912.060809-53.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/yonyou/cpu-buyoffer-api/1.0.0-SNAPSHOT/cpu-buyoffer-api-1.0.0-20170912.060809-53-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/yonyou/cpu-buyoffer-api/1.0.0-SNAPSHOT/cpu-buyoffer-api-1.0.0-20170912.060809-53-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

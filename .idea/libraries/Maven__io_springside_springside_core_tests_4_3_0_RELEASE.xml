@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: io.springside:springside-core:tests:4.3.0-RELEASE">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/io/springside/springside-core/4.3.0-RELEASE/springside-core-4.3.0-RELEASE-tests.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/io/springside/springside-core/4.3.0-RELEASE/springside-core-4.3.0-RELEASE-test-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/io/springside/springside-core/4.3.0-RELEASE/springside-core-4.3.0-RELEASE-test-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- redis配置 -->
+    <bean id="redisPool" class="com.yonyou.energy.common.redis.RedisPoolFactory"
+          scope="prototype" factory-method="createJedisPool">
+        <constructor-arg value="${redis.session.url}"/>
+    </bean>
+    <bean id="jedisTemplate" class="org.springside.modules.nosql.redis.JedisTemplate">
+        <constructor-arg ref="redisPool"></constructor-arg>
+    </bean>
+
+    <bean id="cacheManager" class="com.yonyou.energy.common.cache.SessionCacheManager">
+        <property name="jedisTemplate" ref="jedisTemplate"/>
+        <property name="sessionTimeout" value="86400"/>
+    </bean>
+
+    <bean id="redisclinet" class="com.yonyou.cpu.common.redis.RedisClient">
+        <property name="jedisTemplate" ref="jedisTemplate" />
+        <property name="sessionTimeout" value="86400" />
+    </bean>
+</beans>

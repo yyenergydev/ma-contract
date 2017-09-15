@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonyou.energy.contract.dao.itf.IContractTypeUsescopeDAO">
+  <resultMap id="BaseResultMap" type="com.yonyou.energy.contract.domain.ContractTypeUsescope">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="contracttypeid" jdbcType="BIGINT" property="contracttypeid" />
+    <result column="orgid" jdbcType="BIGINT" property="orgid" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="dr" jdbcType="INTEGER" property="dr" />
+    <result column="ts" jdbcType="VARCHAR" property="ts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, contracttypeid, orgid, type, dr, ts
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sgnc_contract_type_usescope
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sgnc_contract_type_usescope
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yonyou.energy.contract.domain.ContractTypeUsescope">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sgnc_contract_type_usescope (contracttypeid, orgid, type, 
+      dr, ts)
+    values (#{contracttypeid,jdbcType=BIGINT}, #{orgid,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, 
+      #{dr,jdbcType=INTEGER}, #{ts,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yonyou.energy.contract.domain.ContractTypeUsescope">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sgnc_contract_type_usescope
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contracttypeid != null">
+        contracttypeid,
+      </if>
+      <if test="orgid != null">
+        orgid,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="dr != null">
+        dr,
+      </if>
+      <if test="ts != null">
+        ts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contracttypeid != null">
+        #{contracttypeid,jdbcType=BIGINT},
+      </if>
+      <if test="orgid != null">
+        #{orgid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null">
+        #{ts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yonyou.energy.contract.domain.ContractTypeUsescope">
+    update sgnc_contract_type_usescope
+    <set>
+      <if test="contracttypeid != null">
+        contracttypeid = #{contracttypeid,jdbcType=BIGINT},
+      </if>
+      <if test="orgid != null">
+        orgid = #{orgid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        dr = #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null">
+        ts = #{ts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yonyou.energy.contract.domain.ContractTypeUsescope">
+    update sgnc_contract_type_usescope
+    set contracttypeid = #{contracttypeid,jdbcType=BIGINT},
+      orgid = #{orgid,jdbcType=BIGINT},
+      type = #{type,jdbcType=VARCHAR},
+      dr = #{dr,jdbcType=INTEGER},
+      ts = #{ts,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

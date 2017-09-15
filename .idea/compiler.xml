@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ma-contract-api" />
+        <module name="ma-contract-dao" />
+        <module name="ma-contract-domain" />
+        <module name="ma-contract-service" />
+        <module name="ma-contract-web" />
+        <module name="macontractdomain" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ma-contract" target="1.7" />
+      <module name="ma-contract-api" target="1.7" />
+      <module name="ma-contract-dao" target="1.7" />
+      <module name="ma-contract-domain" target="1.7" />
+      <module name="ma-contract-service" target="1.7" />
+      <module name="ma-contract-web" target="1.7" />
+      <module name="macontractdomain" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

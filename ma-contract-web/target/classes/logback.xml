@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<configuration>
+    <!-- ch.qos.logback.core.ConsoleAppender 控制台print -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- 日志级别 -->	
+    <root>
+        <level value="error" />
+        <level value="info" />
+        <!-- <level value="debug" />-->
+        <appender-ref ref="console" />
+    </root>
+    <logger name="org.apache.ibatis" level="ERROR">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="java.sql" level="ERROR">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+</configuration>

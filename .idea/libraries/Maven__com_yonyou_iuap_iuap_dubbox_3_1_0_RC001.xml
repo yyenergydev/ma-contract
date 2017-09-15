@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.yonyou.iuap:iuap-dubbox:3.1.0-RC001">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/yonyou/iuap/iuap-dubbox/3.1.0-RC001/iuap-dubbox-3.1.0-RC001.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/yonyou/iuap/iuap-dubbox/3.1.0-RC001/iuap-dubbox-3.1.0-RC001-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/yonyou/iuap/iuap-dubbox/3.1.0-RC001/iuap-dubbox-3.1.0-RC001-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

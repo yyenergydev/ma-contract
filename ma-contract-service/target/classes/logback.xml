@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%t %d{yyyy-MM-dd HH:mm:ss} %-5p]-%c %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="cpu-bidtrade-service-debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/exports/log/cpu-bidtrade/service.contract/cpu-bidtrade-service-debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <FileNamePattern>/exports/log/cpu-bidtrade/service.contract/cpu-bidtrade-service-debug.%i.log</FileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>5</MaxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>500MB</MaxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}[%thread] %-5p]-%c %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>      
+            <onMismatch>DENY</onMismatch>  
+        </filter>
+    </appender>
+
+    <appender name="cpu-bidtrade-service-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/exports/log/cpu-bidtrade/service.contract/cpu-bidtrade-service-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <FileNamePattern>/exports/log/cpu-bidtrade/service.contract/cpu-bidtrade-service-error.%i.log</FileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>5</MaxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>500MB</MaxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}[%thread] %-5p]-%c %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>      
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="cpu-bidtrade-mybatis" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/exports/log/cpu-bidtrade/service.contract/cpu-bidtrade-service-mybatis.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <FileNamePattern>/exports/log/cpu-order/service.oass.o2o.jd.com/o2o-oass-mybatis.%i.log</FileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>5</MaxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>500MB</MaxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}[%thread] %-5p]-%c %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <logger name="com.yonyou.yuncai" additivity="false" level="DEBUG">
+        <appender-ref ref="cpu-bidtrade-service-debug" />
+        <appender-ref ref="cpu-bidtrade-service-error" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+
+    <logger name="org.apache.ibatis" additivity="false" level="DEBUG"><appender-ref ref="cpu-bidtrade-mybatis"/></logger>
+    <logger name="java.sql.PreparedStatement" additivity="false" level="DEBUG"><appender-ref ref="cpu-bidtrade-mybatis"/></logger>
+    <logger name="java.sql.ResultSet" additivity="false" level="DEBUG"><appender-ref ref="cpu-bidtrade-mybatis"/></logger>
+    <logger name="java.sql.Connection" additivity="false" level="DEBUG"><appender-ref ref="cpu-bidtrade-mybatis"/></logger>
+
+    <logger name="org.apache" additivity="false" level="INFO"><appender-ref ref="cpu-bidtrade-service-debug"/></logger>
+
+
+    <logger name="com.yonyou.yuncai.launcher" additivity="false" level="INFO">
+        <appender-ref ref="cpu-bidtrade-service-debug" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="cpu-bidtrade-service-debug" />
+        <appender-ref ref="cpu-bidtrade-service-error" />
+        <appender-ref ref="cpu-bidtrade-mybatis" />
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

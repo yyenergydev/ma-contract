@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.eclipse.jetty.aggregate:jetty-webapp:8.1.6.v20120903">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/aggregate/jetty-webapp/8.1.6.v20120903/jetty-webapp-8.1.6.v20120903.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/aggregate/jetty-webapp/8.1.6.v20120903/jetty-webapp-8.1.6.v20120903-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/aggregate/jetty-webapp/8.1.6.v20120903/jetty-webapp-8.1.6.v20120903-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
