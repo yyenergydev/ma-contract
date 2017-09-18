@@ -11,13 +11,11 @@ public interface IContractTypeDAO extends GenericDAO<ContractType,Long> {
 
     int insert(ContractType record);
 
-    int insertSelective(ContractType record);
-
     ContractType selectByPrimaryKey(Long id);
 
     List<ContractType> queryEntity(BaseCriteria criteria);
 
-    int updateByPrimaryKeySelective(ContractType record);
-
     int updateByPrimaryKey(ContractType record);
+
+    int deleteBatch(BaseCriteria criteria);
 }

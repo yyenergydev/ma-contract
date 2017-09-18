@@ -22,7 +22,7 @@ public interface IContractTypeService {
      * @param data
      * @return
      */
-    public ServiceResponse<String> save(ContractType data);
+    public ServiceResponse<String> save(ContractType data, BaseCriteria criteria);
 
     /**
      * 删除

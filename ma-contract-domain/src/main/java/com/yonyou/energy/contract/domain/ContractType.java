@@ -18,6 +18,8 @@ public class ContractType implements Serializable {
 
     private Long parentId;
 
+    private String parentName;
+
     private Long templateId;
 
     private String templateName;
@@ -37,6 +39,8 @@ public class ContractType implements Serializable {
     private String pkGroup;
 
     private String pkOrg;
+
+    private String remark;
 
     private Integer dr;
 
@@ -332,5 +336,21 @@ public class ContractType implements Serializable {
 
     public void setUseScopeNames(String useScopeNames) {
         this.useScopeNames = useScopeNames;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 }

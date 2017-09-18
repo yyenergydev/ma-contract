@@ -8,6 +8,7 @@
     <result column="level" jdbcType="INTEGER" property="level" />
     <result column="is_global" jdbcType="INTEGER" property="isGlobal" />
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="parent_name" jdbcType="VARCHAR" property="parentName"/>
     <result column="template_id" jdbcType="BIGINT" property="templateId" />
     <result column="template_name" jdbcType="VARCHAR" property="templateName"/>
     <result column="creator" jdbcType="BIGINT" property="creator" />
@@ -18,15 +19,20 @@
     <result column="pk_org" jdbcType="CHAR" property="pkOrg" />
     <result column="dr" jdbcType="INTEGER" property="dr" />
     <result column="ts" jdbcType="CHAR" property="ts" />
+    <result column="remark" jdbcType="VARCHAR" property="remark"/>
     <result column="vdef1" jdbcType="VARCHAR" property="vdef1" />
     <result column="vdef2" jdbcType="VARCHAR" property="vdef2" />
     <result column="vdef3" jdbcType="VARCHAR" property="vdef3" />
     <result column="vdef4" jdbcType="VARCHAR" property="vdef4" />
     <result column="vdef5" jdbcType="VARCHAR" property="vdef5" />
   </resultMap>
+  <resultMap id="UsescopeMap" type="com.yonyou.energy.contract.domain.ContractTypeUsescope">
+
+  </resultMap>
+
   <sql id="Base_Column_List">
-    id, code, name, level, is_global, parent_id, template_id, template_name, creator, creationtime,
-    modifier, modifytime, pk_group, pk_org, dr, ts, vdef1, vdef2, vdef3, vdef4, vdef5
+    id, code, name, level, is_global, parent_id, parent_name, template_id, template_name, creator, creationtime,
+    modifier, modifytime, pk_group, pk_org, dr, ts, remark, vdef1, vdef2, vdef3, vdef4, vdef5
   </sql>
   <sql id="sqlCondition">
     <if test="id != null and id != ''">
@@ -80,237 +86,54 @@
     delete from sgnc_contract_type
     where id = #{id,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteBatch">
+    delete from sgnc_contract_type
+    where dr=0
+    <if test="idstr!=null and idstr!=''">
+      and id in (#{idstr})
+    </if>
+    <if test="id!=null and id!=0">
+      and id = #{id}
+    </if>
+  </delete>
   <insert id="insertContractType" parameterType="com.yonyou.energy.contract.domain.ContractType">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into sgnc_contract_type (code, name, level, 
-      is_global, parent_id, template_id, template_name,
+      is_global, parent_id, parent_name, template_id, template_name,
       creator, creationtime, modifier, 
-      modifytime, pk_group, pk_org, 
+      modifytime, pk_group, pk_org, remark,
       dr, ts, vdef1, vdef2, 
       vdef3, vdef4, vdef5
       )
     values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
-      #{isGlobal,jdbcType=INTEGER}, #{parentId,jdbcType=BIGINT}, #{templateId,jdbcType=BIGINT}, #{templateName,jdbcType=VARCHAR},
+      #{isGlobal,jdbcType=INTEGER}, #{parentId,jdbcType=BIGINT}, #{parentName,jdbcType=VARCHAR}, #{templateId,jdbcType=BIGINT}, #{templateName,jdbcType=VARCHAR},
       #{creator,jdbcType=BIGINT}, #{creationtime,jdbcType=CHAR}, #{modifier,jdbcType=BIGINT}, 
-      #{modifytime,jdbcType=CHAR}, #{pkGroup,jdbcType=CHAR}, #{pkOrg,jdbcType=CHAR}, 
-      #{dr,jdbcType=INTEGER}, #{ts,jdbcType=CHAR}, #{vdef1,jdbcType=VARCHAR}, #{vdef2,jdbcType=VARCHAR}, 
+      #{modifytime,jdbcType=CHAR}, #{pkGroup,jdbcType=CHAR}, #{pkOrg,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR},
+      #{dr,jdbcType=INTEGER}, #{ts,jdbcType=CHAR}, #{vdef1,jdbcType=VARCHAR}, #{vdef2,jdbcType=VARCHAR},
       #{vdef3,jdbcType=VARCHAR}, #{vdef4,jdbcType=VARCHAR}, #{vdef5,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertBatch" useGeneratedKeys="true"
           keyProperty="id">
     insert into sgnc_contract_type (code, name, level,
-    is_global, parent_id, template_id, template_name,
+    is_global, parent_id, parent_name, template_id, template_name,
     creator, creationtime, modifier,
-    modifytime, pk_group, pk_org,
+    modifytime, pk_group, pk_org, remark,
     dr, ts, vdef1, vdef2,
     vdef3, vdef4, vdef5
     ) values
     <foreach item="item" collection="list" separator=",">
       (#{item.code,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.level,jdbcType=INTEGER},
-      #{item.isGlobal,jdbcType=INTEGER}, #{item.parentId,jdbcType=BIGINT}, #{item.templateId,jdbcType=BIGINT}, #{item.templateName,jdbcType=VARCHAR},
+      #{item.isGlobal,jdbcType=INTEGER}, #{item.parentId,jdbcType=BIGINT}, #{item.parentName,jdbcType=VARCHAR}, #{item.templateId,jdbcType=BIGINT}, #{item.templateName,jdbcType=VARCHAR},
       #{item.creator,jdbcType=BIGINT}, #{item.creationtime,jdbcType=CHAR}, #{item.modifier,jdbcType=BIGINT},
-      #{item.modifytime,jdbcType=CHAR}, #{item.pkGroup,jdbcType=CHAR}, #{item.pkOrg,jdbcType=CHAR},
+      #{item.modifytime,jdbcType=CHAR}, #{item.pkGroup,jdbcType=CHAR}, #{item.pkOrg,jdbcType=CHAR}, #{item.remark,jdbcType=VARCHAR},
       #{item.dr,jdbcType=INTEGER}, #{item.ts,jdbcType=CHAR}, #{item.vdef1,jdbcType=VARCHAR}, #{item.vdef2,jdbcType=VARCHAR},
       #{item.vdef3,jdbcType=VARCHAR}, #{item.vdef4,jdbcType=VARCHAR}, #{item.vdef5,jdbcType=VARCHAR}
       )
     </foreach>
   </insert>
-  <insert id="insertSelective" parameterType="com.yonyou.energy.contract.domain.ContractType">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into sgnc_contract_type
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        code,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="level != null">
-        level,
-      </if>
-      <if test="isGlobal != null">
-        is_global,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="templateId != null">
-        template_id,
-      </if>
-      <if test="templateName !=null">
-        template_name,
-      </if>
-      <if test="creator != null">
-        creator,
-      </if>
-      <if test="creationtime != null">
-        creationtime,
-      </if>
-      <if test="modifier != null">
-        modifier,
-      </if>
-      <if test="modifytime != null">
-        modifytime,
-      </if>
-      <if test="pkGroup != null">
-        pk_group,
-      </if>
-      <if test="pkOrg != null">
-        pk_org,
-      </if>
-      <if test="dr != null">
-        dr,
-      </if>
-      <if test="ts != null">
-        ts,
-      </if>
-      <if test="vdef1 != null">
-        vdef1,
-      </if>
-      <if test="vdef2 != null">
-        vdef2,
-      </if>
-      <if test="vdef3 != null">
-        vdef3,
-      </if>
-      <if test="vdef4 != null">
-        vdef4,
-      </if>
-      <if test="vdef5 != null">
-        vdef5,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="level != null">
-        #{level,jdbcType=INTEGER},
-      </if>
-      <if test="isGlobal != null">
-        #{isGlobal,jdbcType=INTEGER},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="templateId != null">
-        #{templateId,jdbcType=BIGINT},
-      </if>
-      <if test="templateName != null">
-        #{templateName,jdbcType=BIGINT},
-      </if>
-      <if test="creator != null">
-        #{creator,jdbcType=BIGINT},
-      </if>
-      <if test="creationtime != null">
-        #{creationtime,jdbcType=CHAR},
-      </if>
-      <if test="modifier != null">
-        #{modifier,jdbcType=BIGINT},
-      </if>
-      <if test="modifytime != null">
-        #{modifytime,jdbcType=CHAR},
-      </if>
-      <if test="pkGroup != null">
-        #{pkGroup,jdbcType=CHAR},
-      </if>
-      <if test="pkOrg != null">
-        #{pkOrg,jdbcType=CHAR},
-      </if>
-      <if test="dr != null">
-        #{dr,jdbcType=INTEGER},
-      </if>
-      <if test="ts != null">
-        #{ts,jdbcType=CHAR},
-      </if>
-      <if test="vdef1 != null">
-        #{vdef1,jdbcType=VARCHAR},
-      </if>
-      <if test="vdef2 != null">
-        #{vdef2,jdbcType=VARCHAR},
-      </if>
-      <if test="vdef3 != null">
-        #{vdef3,jdbcType=VARCHAR},
-      </if>
-      <if test="vdef4 != null">
-        #{vdef4,jdbcType=VARCHAR},
-      </if>
-      <if test="vdef5 != null">
-        #{vdef5,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yonyou.energy.contract.domain.ContractType">
-    update sgnc_contract_type
-    <set>
-      <if test="code != null">
-        code = #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="level != null">
-        level = #{level,jdbcType=INTEGER},
-      </if>
-      <if test="isGlobal != null">
-        is_global = #{isGlobal,jdbcType=INTEGER},
-      </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="templateId != null">
-        template_id = #{templateId,jdbcType=BIGINT},
-      </if>
-      <if test="creator != null">
-        creator = #{creator,jdbcType=BIGINT},
-      </if>
-      <if test="creationtime != null">
-        creationtime = #{creationtime,jdbcType=CHAR},
-      </if>
-      <if test="modifier != null">
-        modifier = #{modifier,jdbcType=BIGINT},
-      </if>
-      <if test="modifytime != null">
-        modifytime = #{modifytime,jdbcType=CHAR},
-      </if>
-      <if test="pkGroup != null">
-        pk_group = #{pkGroup,jdbcType=CHAR},
-      </if>
-      <if test="pkOrg != null">
-        pk_org = #{pkOrg,jdbcType=CHAR},
-      </if>
-      <if test="dr != null">
-        dr = #{dr,jdbcType=INTEGER},
-      </if>
-      <if test="ts != null">
-        ts = #{ts,jdbcType=CHAR},
-      </if>
-      <if test="vdef1 != null">
-        vdef1 = #{vdef1,jdbcType=VARCHAR},
-      </if>
-      <if test="vdef2 != null">
-        vdef2 = #{vdef2,jdbcType=VARCHAR},
-      </if>
-      <if test="vdef3 != null">
-        vdef3 = #{vdef3,jdbcType=VARCHAR},
-      </if>
-      <if test="vdef4 != null">
-        vdef4 = #{vdef4,jdbcType=VARCHAR},
-      </if>
-      <if test="vdef5 != null">
-        vdef5 = #{vdef5,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.yonyou.energy.contract.domain.ContractType">
     update sgnc_contract_type
     set code = #{code,jdbcType=VARCHAR},
@@ -318,6 +141,7 @@
       level = #{level,jdbcType=INTEGER},
       is_global = #{isGlobal,jdbcType=INTEGER},
       parent_id = #{parentId,jdbcType=BIGINT},
+      parent_name = #{parentName,jdbcType=VARCHAR},
       template_id = #{templateId,jdbcType=BIGINT},
       template_name = #{templateName,jdbcType=VARCHAR},
       creator = #{creator,jdbcType=BIGINT},
@@ -326,6 +150,7 @@
       modifytime = #{modifytime,jdbcType=CHAR},
       pk_group = #{pkGroup,jdbcType=CHAR},
       pk_org = #{pkOrg,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
       dr = #{dr,jdbcType=INTEGER},
       ts = #{ts,jdbcType=CHAR},
       vdef1 = #{vdef1,jdbcType=VARCHAR},

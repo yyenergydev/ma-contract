@@ -21,11 +21,6 @@ public class ContractTypeDAOImpl extends GenericDAOImpl<ContractType, Long> impl
     }
 
     @Override
-    public int insertSelective(ContractType record) {
-        return 0;
-    }
-
-    @Override
     public ContractType selectByPrimaryKey(Long id) {
         //Mapper mapper = getSqlSession().getMapper(ContractType.class);
 
@@ -42,12 +37,15 @@ public class ContractTypeDAOImpl extends GenericDAOImpl<ContractType, Long> impl
     }
 
     @Override
-    public int updateByPrimaryKeySelective(ContractType record) {
-        return 0;
+    public int updateByPrimaryKey(ContractType record) {
+        return super.update("updateByPrimaryKey",record);
     }
 
     @Override
-    public int updateByPrimaryKey(ContractType record) {
-        return super.update("updateByPrimaryKey",record);
+    public int deleteBatch(BaseCriteria criteria) {
+        if(criteria.getIds()!=null && criteria.getIds().length>0){
+            criteria.setIdstr(criteria.getIds().toString());
+        }
+        return getSqlSession().delete(this.nameSpance+".deleteBatch",criteria);
     }
 }

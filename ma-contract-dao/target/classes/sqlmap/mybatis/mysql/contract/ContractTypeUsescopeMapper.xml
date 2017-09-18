@@ -12,11 +12,50 @@
   <sql id="Base_Column_List">
     id, contracttypeid, orgid, type, dr, ts
   </sql>
+  <sql id="sqlCondition">
+    <if test="id != null and id != ''">
+      and id= #{id}
+    </if>
+    <if test="ids!=null and ids!=''">
+      and id IN
+      <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    <if test="parentid!=null and parentid!=0">
+      and parent_id=#{parentid}
+    </if>
+    <if test="billstatus != null and billstatus != ''">
+      and billstatus= #{billstatus}
+    </if>
+    <if test="null != billstatuses and billstatuses != ''">
+      and billstatus in (${billstatuses})
+    </if>
+    <if test="null != code and code!=''">
+      and code like CONCAT('%',#{code},'%')
+    </if>
+    <if test="null != name and name!=''">
+      and name like CONCAT('%',#{name},'%')
+    </if>
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sgnc_contract_type_usescope
     where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByContractTypeId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sgnc_contract_type_usescope
+    where contracttypeid = #{contractTypeId,jdbcType=BIGINT}
+  </select>
+  <select id="selectUsescope" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sgnc_contract_type_usescope
+    where dr=0
+    <include refid="sqlCondition"/>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sgnc_contract_type_usescope
@@ -31,67 +70,15 @@
     values (#{contracttypeid,jdbcType=BIGINT}, #{orgid,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, 
       #{dr,jdbcType=INTEGER}, #{ts,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yonyou.energy.contract.domain.ContractTypeUsescope">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into sgnc_contract_type_usescope
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="contracttypeid != null">
-        contracttypeid,
-      </if>
-      <if test="orgid != null">
-        orgid,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="dr != null">
-        dr,
-      </if>
-      <if test="ts != null">
-        ts,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="contracttypeid != null">
-        #{contracttypeid,jdbcType=BIGINT},
-      </if>
-      <if test="orgid != null">
-        #{orgid,jdbcType=BIGINT},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="dr != null">
-        #{dr,jdbcType=INTEGER},
-      </if>
-      <if test="ts != null">
-        #{ts,jdbcType=VARCHAR},
-      </if>
-    </trim>
+  <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+    insert into sgnc_contract_type_usescope (contracttypeid, orgid, type,
+    dr, ts) values
+    <foreach item="item" collection="list" separator=",">
+      (#{item.contracttypeid,jdbcType=BIGINT}, #{item.orgid,jdbcType=BIGINT}, #{item.type,jdbcType=VARCHAR},
+      #{item.dr,jdbcType=INTEGER}, #{item.ts,jdbcType=VARCHAR})
+    </foreach>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yonyou.energy.contract.domain.ContractTypeUsescope">
-    update sgnc_contract_type_usescope
-    <set>
-      <if test="contracttypeid != null">
-        contracttypeid = #{contracttypeid,jdbcType=BIGINT},
-      </if>
-      <if test="orgid != null">
-        orgid = #{orgid,jdbcType=BIGINT},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="dr != null">
-        dr = #{dr,jdbcType=INTEGER},
-      </if>
-      <if test="ts != null">
-        ts = #{ts,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
   <update id="updateByPrimaryKey" parameterType="com.yonyou.energy.contract.domain.ContractTypeUsescope">
     update sgnc_contract_type_usescope
     set contracttypeid = #{contracttypeid,jdbcType=BIGINT},
@@ -101,4 +88,15 @@
       ts = #{ts,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <delete id="deleteBatch">
+    delete from sgnc_contract_type_usescope
+    where dr=0
+    <if test="idstr!=null and idstr!=''">
+      and contracttypeid in (#{idstr})
+    </if>
+    <if test="id!=null and id!=0">
+      and contracttypeid = #{id}
+    </if>
+  </delete>
 </mapper>

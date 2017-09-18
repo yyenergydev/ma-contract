@@ -7,22 +7,18 @@ public class BaseCriteria extends PageCriteria implements Serializable {
 
     private Long id;
     private Long[] ids;
-
+    private String idstr;
     private Long parentid;
-    /** 修改人id */
+    private Integer parentLevel;
+    private Integer level;
     private Long modifier;
-    /**页面状态切换状态**/
     private String status;
-    /**单据状态**/
     private String billstatus;
-    /**
-     * 多个单据状态
-     * */
     private String billstatuses;
-
     private String code;
-
     private String name;
+
+
 
     public Long getId() {
         return id;
@@ -94,5 +90,29 @@ public class BaseCriteria extends PageCriteria implements Serializable {
 
     public void setParentid(Long parentid) {
         this.parentid = parentid;
+    }
+
+    public Integer getParentLevel() {
+        return parentLevel;
+    }
+
+    public void setParentLevel(Integer parentLevel) {
+        this.parentLevel = parentLevel;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public String getIdstr() {
+        return idstr;
+    }
+
+    public void setIdstr(String idstr) {
+        this.idstr = idstr;
     }
 }

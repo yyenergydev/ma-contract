@@ -34,7 +34,9 @@ public class TestContractTypeService {
         contract.setCreator(2323l);
         contract.setDr(0);
         contract.setName("Jack222");
-        ser.save(contract);
+
+        BaseCriteria criteria = new BaseCriteria();
+        ser.save(contract, criteria);
 
     }
 

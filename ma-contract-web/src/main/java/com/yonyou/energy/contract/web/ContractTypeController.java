@@ -38,28 +38,28 @@ public class ContractTypeController extends BaseController {
         return result;
     }
 
-    @RequestMapping("listOne")
-    public String queryOne(Long id){
-        String result = null;
-        ServiceResponse<String> response = contractTypeServiceImpl.queryByPk(id);
-        result = this.warpResponseEntity(response,ContractType.class);
-        return result;
-    }
-
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveContractType(@RequestBody String  jsonData){
+    public String saveContractType(@RequestBody String  jsonData, BaseCriteria criteria){
 
         String result = null;
         try {
             ContractType contractType = JsonUtil.jsonToObject(jsonData, ContractType.class);
 
-            ServiceResponse<String> response = contractTypeServiceImpl.save(contractType);
+            ServiceResponse<String> response = contractTypeServiceImpl.save(contractType, criteria);
             result = this.warpResponseEntity(response, ContractType.class);
         } catch (Exception e) {
             logger.error("保存失败：" + e.getMessage());
             result = this.warpException(e, e.getMessage());//"保存失败"
         }
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public String deleteContractType(BaseCriteria criteria){
+        ServiceResponse<String> response = contractTypeServiceImpl.deleteBatch(criteria);
+        String result = this.warpResponseEntity(response);
         return result;
     }
 }
