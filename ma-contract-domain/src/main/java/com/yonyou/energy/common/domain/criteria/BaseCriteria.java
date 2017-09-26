@@ -1,8 +1,15 @@
 package com.yonyou.energy.common.domain.criteria;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 
+/**
+ * 公共的参数载体类
+ * 这里面的参数应该是够用了,有特殊的参数可以再加,用这一个就行
+ * @author mahonggeng
+ * @create 2017-09-13 16:01
+ **/
 public class BaseCriteria extends PageCriteria implements Serializable {
 
     private Long id;
@@ -114,5 +121,17 @@ public class BaseCriteria extends PageCriteria implements Serializable {
 
     public void setIdstr(String idstr) {
         this.idstr = idstr;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseCriteria{" +
+                "id=" + id +
+                ", ids=" + Arrays.toString(ids) +
+                ", parentid=" + parentid +
+                ", level=" + level +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

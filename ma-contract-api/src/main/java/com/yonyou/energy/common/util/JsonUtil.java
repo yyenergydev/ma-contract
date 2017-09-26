@@ -7,6 +7,11 @@ import net.sf.json.JSONObject;
 import java.util.Collection;
 import java.util.logging.Logger;
 
+/**
+ * Json处理工具类
+ * @author mahonggeng
+ * @create 2017-09-13 16:18
+ **/
 public class JsonUtil {
 
     public static String objToString(Object obj){

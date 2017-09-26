@@ -9,6 +9,11 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
+/**
+ * 合同缓存类,暂时没做
+ * @author mahonggeng
+ * @create 2017-09-14 16:21
+ **/
 @Component
 public class ContractCatche {
 

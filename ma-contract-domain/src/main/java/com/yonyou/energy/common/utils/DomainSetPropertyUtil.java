@@ -3,6 +3,11 @@ package com.yonyou.energy.common.utils;
 import java.lang.reflect.Method;
 import java.util.Date;
 
+/**
+ * 属性复制工具类
+ * @author mahonggeng
+ * @create 2017-09-16 16:01
+ **/
 public class DomainSetPropertyUtil {
 
     public static <T> void setCommonProperty(T obj){

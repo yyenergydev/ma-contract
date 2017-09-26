@@ -22,6 +22,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * 控制类基类
+ * change by mahonggeng
+ * 2017-09-12 16:07
+ **/
 public class BaseController {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired

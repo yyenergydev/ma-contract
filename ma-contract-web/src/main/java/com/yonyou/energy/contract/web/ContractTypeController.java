@@ -1,26 +1,22 @@
 package com.yonyou.energy.contract.web;
 
-import com.yonyou.cpu.commons.domain.PageBean;
 import com.yonyou.energy.common.domain.criteria.BaseCriteria;
 import com.yonyou.energy.common.domain.response.ServiceResponse;
 import com.yonyou.energy.common.util.JsonUtil;
-import com.yonyou.energy.common.utils.Recipes_DistAtomicInt;
 import com.yonyou.energy.common.web.BaseController;
 import com.yonyou.energy.contract.api.IContractTypeService;
 import com.yonyou.energy.contract.domain.ContractType;
-import com.yonyou.iuap.context.InvocationInfoProxy;
-import org.apache.curator.framework.recipes.atomic.DistributedAtomicInteger;
-import org.apache.curator.retry.RetryNTimes;
-import org.cpu.common.utils.DateFormatUtils;
-import org.cpu.common.utils.json.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.logging.Logger;
 
+/**
+ * 合同类型REST服务
+ * @author mahonggeng
+ * @create 2017-09-13 16:07
+ **/
 @Controller
 @RestController
 @RequestMapping(value = "/contracttype")
@@ -31,6 +27,10 @@ public class ContractTypeController extends BaseController {
 
     @RequestMapping("/list")
     public String list(BaseCriteria criteria){
+
+        System.out.println("Jack----------------------list--------------------------");
+        Logger.getLogger(this.getClass().getName()).info("ContractType list method :"+criteria.toString());
+
         String result = null;
         //{"billstatus":"","billstatuses":"","code":"","enterpriseId":0,"enterpriseName":"","extFields":null,"id":0,"ids":[],"modifier":0,"name":"Jack","pageIndex":0,"pageSize":10,"parentid":0,"sortItemMap":null,"status":"","totalCount":0,"totalPage":0}
         ServiceResponse<String> response = contractTypeServiceImpl.list(criteria);
@@ -56,8 +56,12 @@ public class ContractTypeController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public String deleteContractType(BaseCriteria criteria){
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteContractType(@RequestBody BaseCriteria criteria){
+
+        System.out.println("Jack----------------------delete--------------------------");
+        Logger.getLogger(this.getClass().getName()).info("ContractType delete method :"+criteria.toString());
+
         ServiceResponse<String> response = contractTypeServiceImpl.deleteBatch(criteria);
         String result = this.warpResponseEntity(response);
         return result;

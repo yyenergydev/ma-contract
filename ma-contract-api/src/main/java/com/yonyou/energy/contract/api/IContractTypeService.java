@@ -7,6 +7,11 @@ import com.yonyou.energy.contract.domain.ContractType;
 
 import java.util.List;
 
+/**
+ * 合同类型服务接口
+ * @author mahonggeng
+ * @create 2017-09-13 16:18
+ **/
 public interface IContractTypeService {
 
     /**

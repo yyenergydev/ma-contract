@@ -3,8 +3,10 @@ package com.yonyou.energy.contract.domain;
 import java.io.Serializable;
 
 /**
- * @author 
- */
+ * 合同类型使用范围实体类
+ * @author mahonggeng
+ * @create 2017-09-13 16:01
+ **/
 public class ContractTypeUsescope implements Serializable {
     private Long id;
 

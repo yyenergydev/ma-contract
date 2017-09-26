@@ -10,7 +10,11 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.util.Assert;
 
 
-
+/**
+ * mybatis与spring整合持久化 公共实现类
+ * change by mahonggeng
+ * change time 2017-09-12 16:01
+ **/
 public class GenericDAOImpl<E, PK> extends SqlSessionDaoSupport
         implements GenericDAO<E, PK>
 {

@@ -16,6 +16,11 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.logging.Logger;
 
+/**
+ * 合同类型服务实现类
+ * @author mahonggeng
+ * @create 2017-09-13 16:21
+ **/
 @Service
 public class ContractTypeServiceImpl implements IContractTypeService {
 
@@ -145,11 +150,11 @@ public class ContractTypeServiceImpl implements IContractTypeService {
         if(data.getId()==null || data.getId().equals(0l)){
             data.setCreator(1l);
             data.setCreationtime(currDate);
-            data.setLevel(criteria.getLevel());
+            /*data.setLevel(criteria.getLevel());
             if(criteria.getParentid()!=null && !"".equals(criteria.getParentid()))
                 data.setParentId(criteria.getParentid());
             else
-                data.setParentId(0l);
+                data.setParentId(0l);*/
         }else{
             data.setModifier(1l);
 

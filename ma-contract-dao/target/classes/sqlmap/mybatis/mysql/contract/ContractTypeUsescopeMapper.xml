@@ -9,35 +9,7 @@
     <result column="dr" jdbcType="INTEGER" property="dr" />
     <result column="ts" jdbcType="VARCHAR" property="ts" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, contracttypeid, orgid, type, dr, ts
-  </sql>
-  <sql id="sqlCondition">
-    <if test="id != null and id != ''">
-      and id= #{id}
-    </if>
-    <if test="ids!=null and ids!=''">
-      and id IN
-      <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
-        #{item}
-      </foreach>
-    </if>
-    <if test="parentid!=null and parentid!=0">
-      and parent_id=#{parentid}
-    </if>
-    <if test="billstatus != null and billstatus != ''">
-      and billstatus= #{billstatus}
-    </if>
-    <if test="null != billstatuses and billstatuses != ''">
-      and billstatus in (${billstatuses})
-    </if>
-    <if test="null != code and code!=''">
-      and code like CONCAT('%',#{code},'%')
-    </if>
-    <if test="null != name and name!=''">
-      and name like CONCAT('%',#{name},'%')
-    </if>
-  </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -99,4 +71,35 @@
       and contracttypeid = #{id}
     </if>
   </delete>
+
+  <sql id="Base_Column_List">
+    id, contracttypeid, orgid, type, dr, ts
+  </sql>
+  <sql id="sqlCondition">
+    <if test="id != null and id != ''">
+      and id= #{id}
+    </if>
+    <if test="ids!=null and ids!=''">
+      and id IN
+      <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    <if test="parentid!=null and parentid!=0">
+      and parent_id=#{parentid}
+    </if>
+    <if test="billstatus != null and billstatus != ''">
+      and billstatus= #{billstatus}
+    </if>
+    <if test="null != billstatuses and billstatuses != ''">
+      and billstatus in (${billstatuses})
+    </if>
+    <if test="null != code and code!=''">
+      and code like CONCAT('%',#{code},'%')
+    </if>
+    <if test="null != name and name!=''">
+      and name like CONCAT('%',#{name},'%')
+    </if>
+  </sql>
+
 </mapper>

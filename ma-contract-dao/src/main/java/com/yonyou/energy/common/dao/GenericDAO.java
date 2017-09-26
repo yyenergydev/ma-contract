@@ -5,7 +5,11 @@ import com.yonyou.energy.common.domain.criteria.Criteria;
 
 import java.util.List;
 
-
+/**
+ * mybatis与spring整合持久化 公共接口
+ * change by mahonggeng
+ * change time 2017-09-12 16:01
+ **/
 public  interface GenericDAO<E, PK>
 {
     public  int insert(E paramE);
