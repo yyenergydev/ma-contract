@@ -93,9 +93,10 @@ public class BaseController {
                     data = "[]";
                 }
 
-                JSONObject pageJson = new JSONObject();
-                pageJson.put("result", data);
-                responseJson.put("data", pageJson);
+                /*JSONObject pageJson = new JSONObject();
+                pageJson.put("result", data);*/
+                //数组类型返回格式修改 mhg
+                responseJson.put("data", data);
                 responseJson.put("status", Integer.valueOf(1));
             } else {
                 responseJson.put("status", Integer.valueOf(0));
