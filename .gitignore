@@ -30,8 +30,5 @@ gen### Java template
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-ma-contract-api/target/
-ma-contract-dao/target/
-ma-contract-domain/target/
-ma-contract-service/target/
-ma-contract-web/target/
+*.class:
+target/
