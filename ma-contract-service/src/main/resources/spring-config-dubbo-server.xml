@@ -11,12 +11,8 @@
     <dubbo:application name="${dubbo.application.name}"/>
     <dubbo:protocol name="dubbo" port="-1"/>
     <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" timeout="35000" check="false" subscribe="false"/>
-    <!--<dubbo:service interface="com.yonyou.yuncai.bidtrade.api.IBidtradeService" ref="bidtradeServiceImpl"    group="${dubbo.bidauction.group}" filter="logcontext"/>
-    <dubbo:service interface="com.yonyou.yuncai.bidtrade.api.IBidtradeRegisterService" ref="bidtradeRegisterServiceImpl" group="${dubbo.bidauction.group}" filter="logcontext"/>
-    <dubbo:service interface="com.yonyou.yuncai.bidtrade.inner.api.IBidquoteInnerService" ref="bidquoteInnerServiceImpl" group="${dubbo.bidauction.group}" filter="logcontext"/>
-    <dubbo:service interface="com.yonyou.yuncai.bidtrade.inner.api.IBidtradeInnerService" ref="bidtradeInnerServiceImpl" group="${dubbo.bidauction.group}"  filter="logcontext"/>
-    <dubbo:service interface="com.yonyou.yuncai.bidtrade.api.IMsgPusherService" ref="msgPusherServiceImpl" group="${dubbo.bidauction.group}"  filter="logcontext"/>
-	<dubbo:service interface="com.yonyou.yuncai.bidtrade.api.IBidtradeHallService" ref="bidtradeHallServiceImpl" group="${dubbo.bidauction.group}" filter="logcontext" />
--->
+
     <dubbo:service interface="com.yonyou.energy.contract.api.IContractTypeService" ref="contractTypeServiceImpl" group="${dubbo.contract.group}" filter="logcontext"/>
+    <dubbo:service interface="com.yonyou.energy.contract.api.IContractSampleTextService" ref="contractSampleTextServiceImpl" group="${dubbo.contract.group}" filter="logcontext"/>
+    <dubbo:service interface="com.yonyou.energy.contract.api.IBaseContractService" ref="baseContractServiceImpl" group="${dubbo.contract.group}" filter="logcontext"/>
 </beans>

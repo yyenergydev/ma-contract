@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonyou.energy.contract.dao.itf.IContractSampleTextDAO">
+  <resultMap id="BaseResultMap" type="com.yonyou.energy.contract.domain.ContractSampleText">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="version" jdbcType="DOUBLE" property="version" />
+    <result column="contracttype_id" jdbcType="BIGINT" property="contracttypeId" />
+    <result column="contracttype_name" jdbcType="VARCHAR" property="contracttypeName" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="creationtime" jdbcType="CHAR" property="creationtime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modifytime" jdbcType="CHAR" property="modifytime" />
+    <result column="pk_group" jdbcType="CHAR" property="pkGroup" />
+    <result column="pk_org" jdbcType="CHAR" property="pkOrg" />
+    <result column="dr" jdbcType="INTEGER" property="dr" />
+    <result column="ts" jdbcType="CHAR" property="ts" />
+    <result column="vdef1" jdbcType="VARCHAR" property="vdef1" />
+    <result column="vdef2" jdbcType="VARCHAR" property="vdef2" />
+    <result column="vdef3" jdbcType="VARCHAR" property="vdef3" />
+    <result column="vdef4" jdbcType="VARCHAR" property="vdef4" />
+    <result column="vdef5" jdbcType="VARCHAR" property="vdef5" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sgnc_contractsampletext
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sgnc_contractsampletext
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yonyou.energy.contract.domain.ContractSampleText">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sgnc_contractsampletext (code, name, version,
+      contracttype_id, contracttype_name, creator,
+      creationtime, modifier, modifytime,
+      pk_group, pk_org, dr, ts,
+      vdef1, vdef2, vdef3,
+      vdef4, vdef5)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{version,jdbcType=DOUBLE},
+      #{contracttypeId,jdbcType=BIGINT}, #{contracttypeName,jdbcType=VARCHAR}, #{creator,jdbcType=BIGINT},
+      #{creationtime,jdbcType=CHAR}, #{modifier,jdbcType=BIGINT}, #{modifytime,jdbcType=CHAR},
+      #{pkGroup,jdbcType=CHAR}, #{pkOrg,jdbcType=CHAR}, #{dr,jdbcType=INTEGER}, #{ts,jdbcType=CHAR},
+      #{vdef1,jdbcType=VARCHAR}, #{vdef2,jdbcType=VARCHAR}, #{vdef3,jdbcType=VARCHAR},
+      #{vdef4,jdbcType=VARCHAR}, #{vdef5,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.yonyou.energy.contract.domain.ContractSampleText">
+    update sgnc_contractsampletext
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      version = #{version,jdbcType=DOUBLE},
+      contracttype_id = #{contracttypeId,jdbcType=BIGINT},
+      contracttype_name = #{contracttypeName,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=BIGINT},
+      creationtime = #{creationtime,jdbcType=CHAR},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modifytime = #{modifytime,jdbcType=CHAR},
+      pk_group = #{pkGroup,jdbcType=CHAR},
+      pk_org = #{pkOrg,jdbcType=CHAR},
+      dr = #{dr,jdbcType=INTEGER},
+      ts = #{ts,jdbcType=CHAR},
+      vdef1 = #{vdef1,jdbcType=VARCHAR},
+      vdef2 = #{vdef2,jdbcType=VARCHAR},
+      vdef3 = #{vdef3,jdbcType=VARCHAR},
+      vdef4 = #{vdef4,jdbcType=VARCHAR},
+      vdef5 = #{vdef5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sgnc_contractsampletext
+    where dr=0
+    <include refid="sqlCondition"/>
+  </select>
+
+  <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+    insert into sgnc_contractsampletext (code, name, version,
+    contracttype_id, contracttype_name, creator,
+    creationtime, modifier, modifytime,
+    pk_group, pk_org, dr, ts,
+    vdef1, vdef2, vdef3,
+    vdef4, vdef5)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.code,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.version,jdbcType=DOUBLE},
+      #{item.contracttypeId,jdbcType=BIGINT}, #{item.contracttypeName,jdbcType=VARCHAR}, #{item.creator,jdbcType=BIGINT},
+      #{item.creationtime,jdbcType=CHAR}, #{item.modifier,jdbcType=BIGINT}, #{item.modifytime,jdbcType=CHAR},
+      #{item.pkGroup,jdbcType=CHAR}, #{item.pkOrg,jdbcType=CHAR}, #{item.dr,jdbcType=INTEGER}, #{item.ts,jdbcType=CHAR},
+      #{item.vdef1,jdbcType=VARCHAR}, #{item.vdef2,jdbcType=VARCHAR}, #{item.vdef3,jdbcType=VARCHAR},
+      #{item.vdef4,jdbcType=VARCHAR}, #{item.vdef5,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <select id="checkCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sgnc_contractsampletext
+    where
+    <foreach collection="list" item="item" separator="or">
+      (code = #{item.code}
+        <if test="item.id!=null and item.id!=0">
+          and id != #{item.id}
+        </if>
+      )
+    </foreach>
+  </select>
+
+  <update id="updateBatch" parameterType="com.yonyou.energy.contract.domain.ContractSampleText">
+
+    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+      update sgnc_contractsampletext
+      <set>
+        code = #{item.code,jdbcType=VARCHAR},
+        name = #{item.name,jdbcType=VARCHAR},
+        version = #{item.version,jdbcType=DOUBLE},
+        contracttype_id = #{item.contracttypeId,jdbcType=BIGINT},
+        contracttype_name = #{item.contracttypeName,jdbcType=VARCHAR},
+        creator = #{item.creator,jdbcType=BIGINT},
+        creationtime = #{item.creationtime,jdbcType=CHAR},
+        modifier = #{item.modifier,jdbcType=BIGINT},
+        modifytime = #{item.modifytime,jdbcType=CHAR},
+        pk_group = #{item.pkGroup,jdbcType=CHAR},
+        pk_org = #{item.pkOrg,jdbcType=CHAR},
+        dr = #{item.dr,jdbcType=INTEGER},
+        ts = #{item.ts,jdbcType=CHAR},
+        vdef1 = #{item.vdef1,jdbcType=VARCHAR},
+        vdef2 = #{item.vdef2,jdbcType=VARCHAR},
+        vdef3 = #{item.vdef3,jdbcType=VARCHAR},
+        vdef4 = #{item.vdef4,jdbcType=VARCHAR},
+        vdef5 = #{item.vdef5,jdbcType=VARCHAR}
+      </set>
+      where id = ${item.id}
+    </foreach>
+  </update>
+  <delete id="deleteBatch">
+    delete from sgnc_contractsampletext
+    where dr=0
+    <if test="ids!=null and ids!=''">
+      and id in
+      <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    <if test="id!=null and id!=0">
+      and id = #{id}
+    </if>
+  </delete>
+
+  <sql id="Base_Column_List">
+    id, code, name, version, contracttype_id, contracttype_name, creator, creationtime,
+    modifier, modifytime, pk_group, pk_org, dr, ts, vdef1, vdef2, vdef3, vdef4, vdef5
+  </sql>
+
+  <sql id="sqlCondition">
+    <if test="id != null and id != ''">
+      and contracttype_id= #{id}
+    </if>
+    <if test="ids!=null and ids!=''">
+      and contracttype_id IN
+      <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    <if test="idstr!=null and idstr!=''">
+      and contracttype_id in (#{idstr})
+    </if>
+    <if test="parentid!=null and parentid!=0">
+      and parent_id=#{parentid}
+    </if>
+    <if test="billstatus != null and billstatus != ''">
+      and billstatus= #{billstatus}
+    </if>
+    <if test="null != billstatuses and billstatuses != ''">
+      and billstatus in (${billstatuses})
+    </if>
+    <if test="null != code and code!=''">
+      and code like CONCAT('%',#{code},'%')
+    </if>
+    <if test="null != name and name!=''">
+      and name like CONCAT('%',#{name},'%')
+    </if>
+  </sql>
+</mapper>
