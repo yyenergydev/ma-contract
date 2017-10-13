@@ -2,14 +2,14 @@ package com.yonyou.energy.contract.api;
 
 import com.yonyou.energy.common.domain.criteria.BaseCriteria;
 import com.yonyou.energy.common.domain.response.ServiceResponse;
-import com.yonyou.energy.contract.domain.ContractTemplate;
+import com.yonyou.energy.contract.domain.IndustryCategory;
 
 import java.util.List;
 
 /**
- * Created by tanghe on 2017/9/27.
+ * Created by tanghe on 2017/10/12.
  */
-public interface IContractTplService {
+public interface IIndustryCategoryService {
 
     /**
      * 列表查询
@@ -23,7 +23,7 @@ public interface IContractTplService {
      * @param data
      * @return
      */
-    public ServiceResponse<String> save(List<ContractTemplate> data, BaseCriteria criteria);
+    public ServiceResponse<String> save(List<IndustryCategory> data, BaseCriteria criteria);
 
     /**
      * 删除
@@ -31,11 +31,4 @@ public interface IContractTplService {
      * @return
      */
     public ServiceResponse<String>  deleteBatch(BaseCriteria criteria);
-
-    /**
-     * 启用
-     * @param criteria
-     * @return
-     */
-    public ServiceResponse<String>  open(BaseCriteria criteria);
 }
