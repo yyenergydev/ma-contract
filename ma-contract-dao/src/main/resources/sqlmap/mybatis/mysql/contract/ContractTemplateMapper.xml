@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonyou.energy.contract.mapper.ContractTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.yonyou.energy.contract.domain.ContractTemplate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="creationtime" jdbcType="CHAR" property="creationtime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modifytime" jdbcType="CHAR" property="modifytime" />
+    <result column="pk_group" jdbcType="CHAR" property="pkGroup" />
+    <result column="pk_org" jdbcType="CHAR" property="pkOrg" />
+    <result column="dr" jdbcType="INTEGER" property="dr" />
+    <result column="ts" jdbcType="CHAR" property="ts" />
+  </resultMap>
+  <resultMap id="UsescopeMap" type="com.yonyou.energy.contract.domain.ContractTypeUsescope">
+
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, code, name, version, status, creator, creationtime,
+    modifier, modifytime, pk_group, pk_org, dr, ts
+  </sql>
+  <sql id="sqlCondition">
+    <if test="id != null and id != ''">
+      and id= #{id}
+    </if>
+    <if test="ids!=null and ids!=''">
+      and id IN
+      <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    <if test="null != code and code!=''">
+      and code like CONCAT('%',#{code},'%')
+    </if>
+    <if test="null != name and name!=''">
+      and name like CONCAT('%',#{name},'%')
+    </if>
+  </sql>
+  <sql id="orderbyCondition">
+    order by creationtime DESC
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sgnc_contract_template
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="queryEntity" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sgnc_contract_template
+    where dr=0
+    <include refid="sqlCondition"/>
+  </select>
+  <select id="selectContractType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sgnc_contract_template
+    where dr=0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sgnc_contract_template
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteBatch">
+    delete from sgnc_contract_template
+    where dr=0
+    <if test="idstr!=null and idstr!=''">
+      and id in (#{idstr})
+    </if>
+    <if test="id!=null and id!=0">
+      and id = #{id}
+    </if>
+  </delete>
+  <insert id="insertContractTemplate" parameterType="com.yonyou.energy.contract.domain.ContractTemplate">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sgnc_contract_template (code, name, version, status,
+      creator, creationtime, modifier, 
+      modifytime, pk_group, pk_org,
+      dr, ts
+      )
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+      #{creator,jdbcType=BIGINT}, #{creationtime,jdbcType=CHAR}, #{modifier,jdbcType=BIGINT},
+      #{modifytime,jdbcType=CHAR}, #{pkGroup,jdbcType=CHAR}, #{pkOrg,jdbcType=CHAR},
+      #{dr,jdbcType=INTEGER}, #{ts,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List" keyProperty="id">
+    insert into sgnc_contract_template (code, name, version, status,
+    creator, creationtime, modifier, modifytime, pk_group, pk_org, dr, ts
+    ) values
+    <foreach item="item" collection="list" separator=",">
+      (#{item.code,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.version,jdbcType=INTEGER}, #{item.status,jdbcType=INTEGER},
+      #{item.creator,jdbcType=BIGINT}, #{item.creationtime,jdbcType=CHAR}, #{item.modifier,jdbcType=BIGINT},
+      #{item.modifytime,jdbcType=CHAR}, #{item.pkGroup,jdbcType=CHAR}, #{item.pkOrg,jdbcType=CHAR},
+      #{item.dr,jdbcType=INTEGER}, #{item.ts,jdbcType=CHAR}
+      )
+    </foreach>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yonyou.energy.contract.domain.ContractTemplate">
+    update sgnc_contract_template
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=BIGINT},
+      creationtime = #{creationtime,jdbcType=CHAR},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modifytime = #{modifytime,jdbcType=CHAR},
+      pk_group = #{pkGroup,jdbcType=CHAR},
+      pk_org = #{pkOrg,jdbcType=CHAR},
+      dr = #{dr,jdbcType=INTEGER},
+      ts = #{ts,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+      update sgnc_contract_template
+      set code = #{item.code,jdbcType=VARCHAR},
+      name = #{item.name,jdbcType=VARCHAR},
+      version = #{item.version,jdbcType=INTEGER},
+      modifier = #{item.modifier,jdbcType=BIGINT},
+      modifytime = #{item.modifytime,jdbcType=CHAR},
+      ts = now()
+      where dr = 0
+      <if test="item.id != null and item.id !=''">
+        and id = #{item.id,jdbcType=BIGINT}
+      </if>
+    </foreach>
+  </update>
+  <update id="setOpenBatch">
+    update sgnc_contract_template
+    set status = 1
+    where dr = 0
+    <if test="idstr!=null and idstr!=''">
+      and id in (#{idstr})
+    </if>
+    <if test="id!=null and id!=0">
+      and id = #{id}
+    </if>
+  </update>
+</mapper>

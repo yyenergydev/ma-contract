@@ -17,5 +17,7 @@
     <dubbo:reference interface="com.yonyou.energy.contract.api.IContractTypeService" id="contractTypeServiceImpl" group="${dubbo.contract.group}" check="false" retries="0" timeout="50000" filter="logcontext"/>
     <dubbo:reference interface="com.yonyou.energy.contract.api.IContractSampleTextService" id="contractSampleTextService" group="${dubbo.contract.group}" check="false" retries="0" timeout="50000" filter="logcontext"/>
     <dubbo:reference interface="com.yonyou.energy.contract.api.IBaseContractService" id="baseContractService" group="${dubbo.contract.group}" check="false" retries="0" timeout="50000" filter="logcontext"/>
-
+	<dubbo:reference interface="com.yonyou.energy.contract.api.IContractTplService" id="contractTplService" group="${dubbo.contract.group}" check="false" retries="0" timeout="50000" filter="logcontext"/>
+	<dubbo:reference interface="com.yonyou.energy.contract.api.ICurrencyService" id="currencyService" group="${dubbo.contract.group}" check="false" retries="0" timeout="50000" filter="logcontext"/>
+	<dubbo:reference interface="com.yonyou.energy.contract.api.IIndustryCategoryService" id="industryCategoryService" group="${dubbo.contract.group}" check="false" retries="0" timeout="50000" filter="logcontext"/>
 </beans>

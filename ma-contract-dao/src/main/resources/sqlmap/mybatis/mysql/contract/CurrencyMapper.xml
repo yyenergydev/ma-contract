@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonyou.energy.contract.mapper.CurrencyMapper">
+    <resultMap id="BaseResultMap" type="com.yonyou.energy.contract.domain.Currency">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="symbol" jdbcType="VARCHAR" property="symbol" />
+        <result column="cur_precision" jdbcType="VARCHAR" property="precision" />
+        <result column="creator" jdbcType="BIGINT" property="creator" />
+        <result column="creationtime" jdbcType="CHAR" property="creationtime" />
+        <result column="modifier" jdbcType="BIGINT" property="modifier" />
+        <result column="modifytime" jdbcType="CHAR" property="modifytime" />
+        <result column="dr" jdbcType="INTEGER" property="dr" />
+        <result column="ts" jdbcType="CHAR" property="ts" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, code, name, symbol, cur_precision, creator, creationtime, dr, ts
+    </sql>
+    <sql id="sqlCondition">
+        <if test="id != null and id != ''">
+            and id= #{id}
+        </if>
+        <if test="ids!=null and ids!=''">
+            and id IN
+            <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="null != code and code!=''">
+            and code like CONCAT('%',#{code},'%')
+        </if>
+        <if test="null != name and name!=''">
+            and name like CONCAT('%',#{name},'%')
+        </if>
+    </sql>
+    <sql id="orderbyCondition">
+        order by creationtime DESC
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sgnc_currency
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="queryEntity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sgnc_currency
+        where dr=0
+        <include refid="sqlCondition"/>
+    </select>
+    <select id="selectCurrency" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sgnc_currency
+        where dr=0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sgnc_currency
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteBatch">
+        delete from sgnc_currency
+        where dr=0
+        <if test="idstr!=null and idstr!=''">
+            and id in (#{idstr})
+        </if>
+        <if test="id!=null and id!=0">
+            and id = #{id}
+        </if>
+    </delete>
+    <insert id="insertCurrency" parameterType="com.yonyou.energy.contract.domain.Currency">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into sgnc_currency (code, name, symbol, cur_precision,
+        creator, creationtime, dr, ts)
+        values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{symbol,jdbcType=VARCHAR}, #{precision,jdbcType=VARCHAR},
+        #{creator,jdbcType=BIGINT}, #{creationtime,jdbcType=CHAR}, #{dr,jdbcType=INTEGER}, #{ts,jdbcType=CHAR}
+        )
+    </insert>
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        insert into sgnc_currency (code, name, symbol, cur_precision,
+        creator, creationtime, dr, ts
+        ) values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.code,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.symbol,jdbcType=VARCHAR}, #{item.precision,jdbcType=VARCHAR},
+            #{item.creator,jdbcType=BIGINT}, #{item.creationtime,jdbcType=CHAR},
+            #{item.dr,jdbcType=INTEGER}, #{item.ts,jdbcType=CHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.yonyou.energy.contract.domain.Currency">
+        update sgnc_currency
+        set code = #{code,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        symbol = #{symbol,jdbcType=VARCHAR},
+        cur_precision = #{precision,jdbcType=VARCHAR},
+        modifier = #{modifier,jdbcType=BIGINT},
+        modifytime = #{modifytime,jdbcType=CHAR},
+        dr = #{dr,jdbcType=INTEGER},
+        ts = now()
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update sgnc_currency
+            <set>
+            code = #{item.code,jdbcType=VARCHAR},
+            name = #{item.name,jdbcType=VARCHAR},
+            symbol = #{item.symbol,jdbcType=VARCHAR},
+            cur_precision = #{item.precision,jdbcType=VARCHAR},
+            modifier = #{item.modifier,jdbcType=BIGINT},
+            modifytime = #{item.modifytime,jdbcType=CHAR},
+            ts = #{item.ts,jdbcType=CHAR}
+            </set>
+            where id = #{item.id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+</mapper>
