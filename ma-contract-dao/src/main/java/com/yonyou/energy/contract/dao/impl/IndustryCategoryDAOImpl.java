@@ -34,15 +34,21 @@ public class IndustryCategoryDAOImpl extends GenericDAOImpl<IndustryCategory, Lo
     }
 
     @Override
-    public int updateBatch(List<IndustryCategory> industryCategories) {
-        return super.update("updateBatch", industryCategories);
+    public int deleteBatch(BaseCriteria criteria) {
+        if (criteria.getIds() != null && criteria.getIds().length > 0) {
+            return super.update("deleteBatch", criteria.getIds());
+        } else {
+            return 0;
+        }
     }
 
     @Override
-    public int deleteBatch(BaseCriteria criteria) {
-        if(criteria.getIds()!=null && criteria.getIds().length>0){
-            criteria.setIdstr(criteria.getIds().toString());
-        }
-        return getSqlSession().delete(this.nameSpance+".deleteBatch",criteria);
+    public int insertBatch(List<IndustryCategory> records) {
+        return super.insert("insertBatch", records);
+    }
+
+    @Override
+    public int updateBatch(List<IndustryCategory> records) {
+        return super.update("updateBatch", records);
     }
 }

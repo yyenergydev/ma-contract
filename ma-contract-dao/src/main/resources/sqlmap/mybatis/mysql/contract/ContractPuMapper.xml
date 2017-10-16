@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonyou.energy.contract.mapper.ContractPuMapper">
+    <resultMap id="BaseResultMap" type="com.yonyou.energy.contract.domain.ContractPu">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="billnum" jdbcType="VARCHAR" property="billnum" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="contract_type_id" jdbcType="BIGINT" property="contractTypeId" />
+        <result column="contract_type_name" jdbcType="VARCHAR" property="contractTypeName" />
+        <result column="is_common_text" jdbcType="INTEGER" property="isCommonText" />
+        <result column="contract_text_id" jdbcType="BIGINT" property="contractTextId" />
+        <result column="contract_text" jdbcType="VARCHAR" property="contractText" />
+        <result column="is_asset_platform" jdbcType="INTEGER" property="isAssetPlatform" />
+        <result column="is_system_contract" jdbcType="INTEGER" property="isSystemContract" />
+        <result column="industry_type_id" jdbcType="BIGINT" property="industryTypeId" />
+        <result column="industry_type" jdbcType="VARCHAR" property="industryType" />
+        <result column="moneyflow" jdbcType="INTEGER" property="moneyflow" />
+        <result column="contractmny" jdbcType="DOUBLE" property="contractmny" />
+        <result column="currency_id" jdbcType="BIGINT" property="currencyId" />
+        <result column="currency_name" jdbcType="VARCHAR" property="currencyName" />
+        <result column="contract_own_id" jdbcType="BIGINT" property="contractOwnId" />
+        <result column="contract_own" jdbcType="VARCHAR" property="contractOwn" />
+        <result column="contract_other_id" jdbcType="BIGINT" property="contractOtherId" />
+        <result column="contract_other" jdbcType="VARCHAR" property="contractOther" />
+        <result column="settlement" jdbcType="INTEGER" property="settlement" />
+        <result column="contract_term" jdbcType="INTEGER" property="contractTerm" />
+        <result column="term_unit" jdbcType="INTEGER" property="termUnit" />
+        <result column="sign_date" jdbcType="VARCHAR" property="signDate" />
+        <result column="paytype" jdbcType="INTEGER" property="paytype" />
+        <result column="undertaker_id" jdbcType="BIGINT" property="undertakerId" />
+        <result column="undertaker" jdbcType="VARCHAR" property="undertaker" />
+        <result column="undertakedept_id" jdbcType="BIGINT" property="undertakedeptId" />
+        <result column="undertakedept" jdbcType="VARCHAR" property="undertakedept" />
+        <result column="contract_status" jdbcType="INTEGER" property="contractStatus" />
+        <result column="contract_count" jdbcType="INTEGER" property="contractCount" />
+        <result column="changedate" jdbcType="VARCHAR" property="changedate" />
+        <result column="is_place_file" jdbcType="INTEGER" property="isPlaceFile" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="markdate" jdbcType="VARCHAR" property="markdate" />
+        <result column="biddingno" jdbcType="VARCHAR" property="biddingno" />
+        <result column="ctrantypeid" jdbcType="VARCHAR" property="ctrantypeid" />
+        <result column="valdate" jdbcType="VARCHAR" property="valdate" />
+        <result column="invallidate" jdbcType="VARCHAR" property="invallidate" />
+        <result column="projectid" jdbcType="VARCHAR" property="projectid" />
+        <result column="projectcode" jdbcType="VARCHAR" property="projectcode" />
+        <result column="eps" jdbcType="VARCHAR" property="eps" />
+        <result column="engineercode" jdbcType="VARCHAR" property="engineercode" />
+        <result column="engineerregno" jdbcType="VARCHAR" property="engineerregno" />
+        <result column="erpcode" jdbcType="VARCHAR" property="erpcode" />
+        <result column="projectnameshort" jdbcType="VARCHAR" property="projectnameshort" />
+        <result column="pk_payterm" jdbcType="VARCHAR" property="pk_payterm" />
+        <result column="creator" jdbcType="BIGINT" property="creator" />
+        <result column="creationtime" jdbcType="CHAR" property="creationtime" />
+        <result column="modifier" jdbcType="BIGINT" property="modifier" />
+        <result column="modifytime" jdbcType="CHAR" property="modifytime" />
+        <result column="pk_group" jdbcType="CHAR" property="pkGroup" />
+        <result column="pk_org" jdbcType="CHAR" property="pkOrg" />
+        <result column="dr" jdbcType="INTEGER" property="dr" />
+        <result column="ts" jdbcType="CHAR" property="ts" />
+        <result column="vdef1" jdbcType="VARCHAR" property="vdef1" />
+        <result column="vdef2" jdbcType="VARCHAR" property="vdef2" />
+        <result column="vdef3" jdbcType="VARCHAR" property="vdef3" />
+        <result column="vdef4" jdbcType="VARCHAR" property="vdef4" />
+        <result column="vdef5" jdbcType="VARCHAR" property="vdef5" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, billnum, code, name, contract_type_id, contract_type_name, is_common_text, contract_text_id, contract_text,
+        is_asset_platform, is_system_contract, industry_type_id, industry_type, moneyflow,
+        contractmny, currency_id, currency_name, contract_own_id, contract_own, contract_other_id,
+        contract_other, settlement, contract_term, term_unit, sign_date, paytype, undertaker_id,
+        undertaker, undertakedept_id, undertakedept, contract_status, contract_count, changedate,
+        is_place_file, remark, markdate, creator, creationtime, modifier, modifytime, pk_group,
+        pk_org, dr, ts, vdef1, vdef2, vdef3, vdef4, vdef5
+    </sql>
+    <select id="selectContractPu" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sgnc_contract_pu
+        where dr=0
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sgnc_contract_pu
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sgnc_contract_pu
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insertContractPu" parameterType="com.yonyou.energy.contract.domain.ContractPu">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into sgnc_contract_pu (billnum, code, name,
+        contract_type_id, contract_type_name, is_common_text, contract_text_id,
+        contract_text, is_asset_platform, is_system_contract,
+        industry_type_id, industry_type, moneyflow,
+        contractmny, currency_id, currency_name,
+        contract_own_id, contract_own, contract_other_id,
+        contract_other, settlement, contract_term,
+        term_unit, sign_date, paytype,
+        undertaker_id, undertaker, undertakedept_id,
+        undertakedept, contract_status, contract_count,
+        changedate, is_place_file, remark,
+        markdate, creator, creationtime,
+        modifier, modifytime, pk_group,
+        pk_org, dr, ts, vdef1,
+        vdef2, vdef3, vdef4,
+        vdef5)
+        values (#{billnum,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+        #{contractTypeId,jdbcType=BIGINT}, #{contractTypeName,jdbcType=VARCHAR}, #{isCommonText,jdbcType=INTEGER}, #{contractTextId,jdbcType=BIGINT},
+        #{contractText,jdbcType=VARCHAR}, #{isAssetPlatform,jdbcType=INTEGER}, #{isSystemContract,jdbcType=INTEGER},
+        #{industryTypeId,jdbcType=BIGINT}, #{industryType,jdbcType=VARCHAR}, #{moneyflow,jdbcType=INTEGER},
+        #{contractmny,jdbcType=DOUBLE}, #{currencyId,jdbcType=BIGINT}, #{currencyName,jdbcType=VARCHAR},
+        #{contractOwnId,jdbcType=BIGINT}, #{contractOwn,jdbcType=VARCHAR}, #{contractOtherId,jdbcType=BIGINT},
+        #{contractOther,jdbcType=VARCHAR}, #{settlement,jdbcType=INTEGER}, #{contractTerm,jdbcType=INTEGER},
+        #{termUnit,jdbcType=INTEGER}, #{signDate,jdbcType=VARCHAR}, #{paytype,jdbcType=INTEGER},
+        #{undertakerId,jdbcType=BIGINT}, #{undertaker,jdbcType=VARCHAR}, #{undertakedeptId,jdbcType=BIGINT},
+        #{undertakedept,jdbcType=VARCHAR}, #{contractStatus,jdbcType=INTEGER}, #{contractCount,jdbcType=INTEGER},
+        #{changedate,jdbcType=VARCHAR}, #{isPlaceFile,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
+        #{markdate,jdbcType=VARCHAR}, #{creator,jdbcType=BIGINT}, #{creationtime,jdbcType=CHAR},
+        #{modifier,jdbcType=BIGINT}, #{modifytime,jdbcType=CHAR}, #{pkGroup,jdbcType=CHAR},
+        #{pkOrg,jdbcType=CHAR}, #{dr,jdbcType=INTEGER}, #{ts,jdbcType=CHAR}, #{vdef1,jdbcType=VARCHAR},
+        #{vdef2,jdbcType=VARCHAR}, #{vdef3,jdbcType=VARCHAR}, #{vdef4,jdbcType=VARCHAR},
+        #{vdef5,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateContractPu" parameterType="com.yonyou.energy.contract.domain.ContractPu">
+        update sgnc_contract_pu
+        set billnum = #{billnum,jdbcType=VARCHAR},
+        code = #{code,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        contract_type_id = #{contractTypeId,jdbcType=BIGINT},
+        contract_type_name = #{contractTypeName,jdbcType=VARCHAR},
+        is_common_text = #{isCommonText,jdbcType=INTEGER},
+        contract_text_id = #{contractTextId,jdbcType=BIGINT},
+        contract_text = #{contractText,jdbcType=VARCHAR},
+        is_asset_platform = #{isAssetPlatform,jdbcType=INTEGER},
+        is_system_contract = #{isSystemContract,jdbcType=INTEGER},
+        industry_type_id = #{industryTypeId,jdbcType=BIGINT},
+        industry_type = #{industryType,jdbcType=VARCHAR},
+        moneyflow = #{moneyflow,jdbcType=INTEGER},
+        contractmny = #{contractmny,jdbcType=DOUBLE},
+        currency_id = #{currencyId,jdbcType=BIGINT},
+        currency_name = #{currencyName,jdbcType=VARCHAR},
+        contract_own_id = #{contractOwnId,jdbcType=BIGINT},
+        contract_own = #{contractOwn,jdbcType=VARCHAR},
+        contract_other_id = #{contractOtherId,jdbcType=BIGINT},
+        contract_other = #{contractOther,jdbcType=VARCHAR},
+        settlement = #{settlement,jdbcType=INTEGER},
+        contract_term = #{contractTerm,jdbcType=INTEGER},
+        term_unit = #{termUnit,jdbcType=INTEGER},
+        sign_date = #{signDate,jdbcType=VARCHAR},
+        paytype = #{paytype,jdbcType=INTEGER},
+        undertaker_id = #{undertakerId,jdbcType=BIGINT},
+        undertaker = #{undertaker,jdbcType=VARCHAR},
+        undertakedept_id = #{undertakedeptId,jdbcType=BIGINT},
+        undertakedept = #{undertakedept,jdbcType=VARCHAR},
+        contract_status = #{contractStatus,jdbcType=INTEGER},
+        contract_count = #{contractCount,jdbcType=INTEGER},
+        changedate = #{changedate,jdbcType=VARCHAR},
+        is_place_file = #{isPlaceFile,jdbcType=INTEGER},
+        remark = #{remark,jdbcType=VARCHAR},
+        markdate = #{markdate,jdbcType=VARCHAR},
+        creator = #{creator,jdbcType=BIGINT},
+        creationtime = #{creationtime,jdbcType=CHAR},
+        modifier = #{modifier,jdbcType=BIGINT},
+        modifytime = #{modifytime,jdbcType=CHAR},
+        pk_group = #{pkGroup,jdbcType=CHAR},
+        pk_org = #{pkOrg,jdbcType=CHAR},
+        dr = #{dr,jdbcType=INTEGER},
+        ts = #{ts,jdbcType=CHAR},
+        vdef1 = #{vdef1,jdbcType=VARCHAR},
+        vdef2 = #{vdef2,jdbcType=VARCHAR},
+        vdef3 = #{vdef3,jdbcType=VARCHAR},
+        vdef4 = #{vdef4,jdbcType=VARCHAR},
+        vdef5 = #{vdef5,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateStatusById" parameterType="com.yonyou.energy.contract.domain.ContractPu">
+        update sgnc_contract_pu
+        set billnum = #{billnum,jdbcType=VARCHAR},
+        code = #{code,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        contract_type_id = #{contractTypeId,jdbcType=BIGINT},
+        contract_type_name = #{contractTypeName,jdbcType=VARCHAR},
+        is_common_text = #{isCommonText,jdbcType=INTEGER},
+        contract_text_id = #{contractTextId,jdbcType=BIGINT},
+        contract_text = #{contractText,jdbcType=VARCHAR},
+        is_asset_platform = #{isAssetPlatform,jdbcType=INTEGER},
+        is_system_contract = #{isSystemContract,jdbcType=INTEGER},
+        industry_type_id = #{industryTypeId,jdbcType=BIGINT},
+        industry_type = #{industryType,jdbcType=VARCHAR},
+        moneyflow = #{moneyflow,jdbcType=INTEGER},
+        contractmny = #{contractmny,jdbcType=DOUBLE},
+        currency_id = #{currencyId,jdbcType=BIGINT},
+        currency_name = #{currencyName,jdbcType=VARCHAR},
+        contract_own_id = #{contractOwnId,jdbcType=BIGINT},
+        contract_own = #{contractOwn,jdbcType=VARCHAR},
+        contract_other_id = #{contractOtherId,jdbcType=BIGINT},
+        contract_other = #{contractOther,jdbcType=VARCHAR},
+        settlement = #{settlement,jdbcType=INTEGER},
+        contract_term = #{contractTerm,jdbcType=INTEGER},
+        term_unit = #{termUnit,jdbcType=INTEGER},
+        sign_date = #{signDate,jdbcType=VARCHAR},
+        paytype = #{paytype,jdbcType=INTEGER},
+        undertaker_id = #{undertakerId,jdbcType=BIGINT},
+        undertaker = #{undertaker,jdbcType=VARCHAR},
+        undertakedept_id = #{undertakedeptId,jdbcType=BIGINT},
+        undertakedept = #{undertakedept,jdbcType=VARCHAR},
+        contract_status = #{contractStatus,jdbcType=INTEGER},
+        contract_count = #{contractCount,jdbcType=INTEGER},
+        changedate = #{changedate,jdbcType=VARCHAR},
+        is_place_file = #{isPlaceFile,jdbcType=INTEGER},
+        remark = #{remark,jdbcType=VARCHAR},
+        markdate = #{markdate,jdbcType=VARCHAR},
+        creator = #{creator,jdbcType=BIGINT},
+        creationtime = #{creationtime,jdbcType=CHAR},
+        modifier = #{modifier,jdbcType=BIGINT},
+        modifytime = #{modifytime,jdbcType=CHAR},
+        pk_group = #{pkGroup,jdbcType=CHAR},
+        pk_org = #{pkOrg,jdbcType=CHAR},
+        dr = #{dr,jdbcType=INTEGER},
+        ts = #{ts,jdbcType=CHAR},
+        vdef1 = #{vdef1,jdbcType=VARCHAR},
+        vdef2 = #{vdef2,jdbcType=VARCHAR},
+        vdef3 = #{vdef3,jdbcType=VARCHAR},
+        vdef4 = #{vdef4,jdbcType=VARCHAR},
+        vdef5 = #{vdef5,jdbcType=VARCHAR}
+        where
+        id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

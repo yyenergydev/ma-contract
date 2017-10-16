@@ -15,7 +15,7 @@
         <result column="ts" jdbcType="CHAR" property="ts" />
     </resultMap>
     <sql id="Base_Column_List">
-        id, code, name, symbol, cur_precision, creator, creationtime, dr, ts
+        id, code, name, symbol, cur_precision, creator, creationtime, modifier, modifytime, dr, ts
     </sql>
     <sql id="sqlCondition">
         <if test="id != null and id != ''">
@@ -41,13 +41,13 @@
         select
         <include refid="Base_Column_List" />
         from sgnc_currency
-        where id = #{id,jdbcType=BIGINT}
+        where dr = 0 and id = #{id,jdbcType=BIGINT}
     </select>
     <select id="queryEntity" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from sgnc_currency
-        where dr=0
+        where dr = 0
         <include refid="sqlCondition"/>
     </select>
     <select id="selectCurrency" resultMap="BaseResultMap">
@@ -60,16 +60,13 @@
         delete from sgnc_currency
         where id = #{id,jdbcType=BIGINT}
     </delete>
-    <delete id="deleteBatch">
-        delete from sgnc_currency
-        where dr=0
-        <if test="idstr!=null and idstr!=''">
-            and id in (#{idstr})
-        </if>
-        <if test="id!=null and id!=0">
-            and id = #{id}
-        </if>
-    </delete>
+    <update id="deleteBatch">
+        update sgnc_currency set dr = 1, ts = now()
+        where dr = 0 and id in
+        <foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
     <insert id="insertCurrency" parameterType="com.yonyou.energy.contract.domain.Currency">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
             SELECT LAST_INSERT_ID()
@@ -86,8 +83,8 @@
         ) values
         <foreach item="item" collection="list" separator=",">
             (#{item.code,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.symbol,jdbcType=VARCHAR}, #{item.precision,jdbcType=VARCHAR},
-            #{item.creator,jdbcType=BIGINT}, #{item.creationtime,jdbcType=CHAR},
-            #{item.dr,jdbcType=INTEGER}, #{item.ts,jdbcType=CHAR}
+            #{item.creator,jdbcType=BIGINT}, now(),
+            #{item.dr,jdbcType=INTEGER}, now()
             )
         </foreach>
     </insert>
@@ -98,8 +95,7 @@
         symbol = #{symbol,jdbcType=VARCHAR},
         cur_precision = #{precision,jdbcType=VARCHAR},
         modifier = #{modifier,jdbcType=BIGINT},
-        modifytime = #{modifytime,jdbcType=CHAR},
-        dr = #{dr,jdbcType=INTEGER},
+        modifytime = now(),
         ts = now()
         where id = #{id,jdbcType=BIGINT}
     </update>
@@ -112,8 +108,8 @@
             symbol = #{item.symbol,jdbcType=VARCHAR},
             cur_precision = #{item.precision,jdbcType=VARCHAR},
             modifier = #{item.modifier,jdbcType=BIGINT},
-            modifytime = #{item.modifytime,jdbcType=CHAR},
-            ts = #{item.ts,jdbcType=CHAR}
+            modifytime = now(),
+            ts = now()
             </set>
             where id = #{item.id,jdbcType=BIGINT}
         </foreach>

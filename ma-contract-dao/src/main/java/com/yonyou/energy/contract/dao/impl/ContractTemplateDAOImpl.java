@@ -41,10 +41,11 @@ public class ContractTemplateDAOImpl extends GenericDAOImpl<ContractTemplate, Lo
 
     @Override
     public int deleteBatch(BaseCriteria criteria) {
-        if(criteria.getIds()!=null && criteria.getIds().length>0){
-            criteria.setIdstr(criteria.getIds().toString());
+        if (criteria.getIds() != null && criteria.getIds().length > 0) {
+            return super.update("deleteBatch", criteria.getIds());
+        } else {
+            return 0;
         }
-        return getSqlSession().delete(this.nameSpance+".deleteBatch",criteria);
     }
 
     @Override
@@ -60,8 +61,9 @@ public class ContractTemplateDAOImpl extends GenericDAOImpl<ContractTemplate, Lo
     @Override
     public int open(BaseCriteria criteria) {
         if (criteria.getIds() != null && criteria.getIds().length > 0) {
-            criteria.setIdstr(criteria.getIds().toString());
+            return getSqlSession().update(this.nameSpance+".setOpenBatch", criteria.getIds());
+        } else {
+            return 0;
         }
-        return getSqlSession().update(this.nameSpance+".setOpenBatch",criteria);
     }
 }

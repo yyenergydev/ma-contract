@@ -8,7 +8,6 @@ import com.yonyou.energy.contract.domain.ContractType;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @Repository
 @TableDesc(nameSpace = "com.yonyou.energy.contract.dao.itf.IContractTypeDAO", tableName = "ContractType")

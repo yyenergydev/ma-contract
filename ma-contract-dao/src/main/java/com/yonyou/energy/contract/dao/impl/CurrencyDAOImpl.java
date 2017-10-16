@@ -4,7 +4,6 @@ import com.yonyou.energy.common.dao.GenericDAOImpl;
 import com.yonyou.energy.common.dao.annotation.TableDesc;
 import com.yonyou.energy.common.domain.criteria.BaseCriteria;
 import com.yonyou.energy.contract.dao.itf.ICurrencyDAO;
-import com.yonyou.energy.contract.domain.ContractTemplate;
 import com.yonyou.energy.contract.domain.Currency;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +34,15 @@ public class CurrencyDAOImpl extends GenericDAOImpl<Currency, Long> implements I
     }
 
     @Override
+    public int deleteBatch(BaseCriteria criteria) {
+        if (criteria.getIds() != null && criteria.getIds().length > 0) {
+            return super.update("deleteBatch", criteria.getIds());
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
     public int insertBatch(List<Currency> records) {
         return super.insert("insertBatch", records);
     }
@@ -42,13 +50,5 @@ public class CurrencyDAOImpl extends GenericDAOImpl<Currency, Long> implements I
     @Override
     public int updateBatch(List<Currency> records) {
         return super.update("updateBatch", records);
-    }
-
-    @Override
-    public int deleteBatch(BaseCriteria criteria) {
-        if(criteria.getIds()!=null && criteria.getIds().length>0){
-            criteria.setIdstr(criteria.getIds().toString());
-        }
-        return getSqlSession().delete(this.nameSpance+".deleteBatch",criteria);
     }
 }

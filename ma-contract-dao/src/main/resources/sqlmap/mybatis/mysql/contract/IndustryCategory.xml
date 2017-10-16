@@ -60,16 +60,13 @@
         delete from sgnc_industrycategory
         where id = #{id,jdbcType=BIGINT}
     </delete>
-    <delete id="deleteBatch">
-        delete from sgnc_industrycategory
-        where dr=0
-        <if test="idstr!=null and idstr!=''">
-            and id in (#{idstr})
-        </if>
-        <if test="id!=null and id!=0">
-            and id = #{id}
-        </if>
-    </delete>
+    <update id="deleteBatch">
+        update sgnc_industrycategory set dr = 1, ts = now()
+        where dr = 0 and id in
+        <foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
     <insert id="insertCurrency" parameterType="com.yonyou.energy.contract.domain.Currency">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
             SELECT LAST_INSERT_ID()
@@ -86,8 +83,8 @@
         ) values
         <foreach item="item" collection="list" separator=",">
             (#{item.code,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, #{item.reason,jdbcType=VARCHAR},
-            #{item.creator,jdbcType=BIGINT}, #{item.creationtime,jdbcType=CHAR},
-            #{item.dr,jdbcType=INTEGER}, #{item.ts,jdbcType=CHAR}
+            #{item.creator,jdbcType=BIGINT}, now(),
+            #{item.dr,jdbcType=INTEGER}, now()
             )
         </foreach>
     </insert>
@@ -106,17 +103,16 @@
     <update id="updateBatch" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             update sgnc_industrycategory
-            set code = #{item.code,jdbcType=VARCHAR},
+            <set>
+            code = #{item.code,jdbcType=VARCHAR},
             name = #{item.name,jdbcType=VARCHAR},
             status = #{item.status,jdbcType=INTEGER},
             reason = #{reason,jdbcType=VARCHAR},
             modifier = #{item.modifier,jdbcType=BIGINT},
-            modifytime = #{item.modifytime,jdbcType=CHAR},
+            modifytime = now(),
             ts = now()
-            where dr = 0
-            <if test="item.id != null and item.id !=''">
-                and id = #{item.id,jdbcType=BIGINT}
-            </if>
+            </set>
+            where id = #{item.id,jdbcType=BIGINT}
         </foreach>
     </update>
 </mapper>

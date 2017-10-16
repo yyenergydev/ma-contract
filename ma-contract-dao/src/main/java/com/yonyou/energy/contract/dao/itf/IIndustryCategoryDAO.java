@@ -12,15 +12,17 @@ import java.util.List;
  */
 public interface IIndustryCategoryDAO extends GenericDAO<IndustryCategory,Long> {
 
-    int deleteByPrimaryKey(Long id);
-
     int insert(IndustryCategory record);
 
-    int updateBatch(List<IndustryCategory> records);
+    int deleteByPrimaryKey(Long id);
 
     IndustryCategory selectByPrimaryKey(Long id);
 
     List<IndustryCategory> queryEntity(BaseCriteria criteria);
+
+    int insertBatch(List<IndustryCategory> records);
+
+    int updateBatch(List<IndustryCategory> records);
 
     int deleteBatch(BaseCriteria criteria);
 }
