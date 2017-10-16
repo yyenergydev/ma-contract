@@ -66,6 +66,7 @@ public class CurrencyServiceImpl implements ICurrencyService {
                 setCommonProp(data);
                 insertList.add(data);
             } else {
+                data.setModifier(1l);
                 updateList.add(data);
             }
         }
@@ -115,8 +116,8 @@ public class CurrencyServiceImpl implements ICurrencyService {
     private void setCommonProp(Currency data){
         String currDate = DateFormatUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss");
         data.setCreator(1l);
-        data.setCreationtime(currDate);
+//        data.setCreationtime(currDate);
         data.setDr(0);
-        data.setTs(currDate);
+//        data.setTs(currDate);
     }
 }
