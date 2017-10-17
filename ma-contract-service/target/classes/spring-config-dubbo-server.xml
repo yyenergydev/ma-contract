@@ -15,6 +15,7 @@
     <dubbo:service interface="com.yonyou.energy.contract.api.IContractTypeService" ref="contractTypeServiceImpl" group="${dubbo.contract.group}" filter="logcontext"/>
     <dubbo:service interface="com.yonyou.energy.contract.api.IContractSampleTextService" ref="contractSampleTextServiceImpl" group="${dubbo.contract.group}" filter="logcontext"/>
     <dubbo:service interface="com.yonyou.energy.contract.api.IBaseContractService" ref="baseContractServiceImpl" group="${dubbo.contract.group}" filter="logcontext"/>
+    <dubbo:service interface="com.yonyou.energy.contract.api.IContractPuService" ref="contractPuServiceImpl" group="${dubbo.contract.group}" filter="logcontext"/>
 	<dubbo:service interface="com.yonyou.energy.contract.api.IContractTplService" ref="contractTplServiceImpl" group="${dubbo.contract.group}" filter="logcontext"/>
     <dubbo:service interface="com.yonyou.energy.contract.api.ICurrencyService" ref="currencyServiceImpl" group="${dubbo.contract.group}" filter="logcontext"/>
     <dubbo:service interface="com.yonyou.energy.contract.api.IIndustryCategoryService" ref="industryCategoryServiceImpl" group="${dubbo.contract.group}" filter="logcontext"/>

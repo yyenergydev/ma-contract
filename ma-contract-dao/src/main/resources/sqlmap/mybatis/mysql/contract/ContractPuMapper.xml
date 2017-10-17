@@ -120,9 +120,9 @@
         #{undertakerId,jdbcType=BIGINT}, #{undertaker,jdbcType=VARCHAR}, #{undertakedeptId,jdbcType=BIGINT},
         #{undertakedept,jdbcType=VARCHAR}, #{contractStatus,jdbcType=INTEGER}, #{contractCount,jdbcType=INTEGER},
         #{changedate,jdbcType=VARCHAR}, #{isPlaceFile,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
-        #{markdate,jdbcType=VARCHAR}, #{creator,jdbcType=BIGINT}, #{creationtime,jdbcType=CHAR},
+        #{markdate,jdbcType=VARCHAR}, #{creator,jdbcType=BIGINT}, now(),
         #{modifier,jdbcType=BIGINT}, #{modifytime,jdbcType=CHAR}, #{pkGroup,jdbcType=CHAR},
-        #{pkOrg,jdbcType=CHAR}, #{dr,jdbcType=INTEGER}, #{ts,jdbcType=CHAR}, #{vdef1,jdbcType=VARCHAR},
+        #{pkOrg,jdbcType=CHAR}, #{dr,jdbcType=INTEGER}, now(), #{vdef1,jdbcType=VARCHAR},
         #{vdef2,jdbcType=VARCHAR}, #{vdef3,jdbcType=VARCHAR}, #{vdef4,jdbcType=VARCHAR},
         #{vdef5,jdbcType=VARCHAR})
     </insert>
@@ -164,19 +164,20 @@
         is_place_file = #{isPlaceFile,jdbcType=INTEGER},
         remark = #{remark,jdbcType=VARCHAR},
         markdate = #{markdate,jdbcType=VARCHAR},
-        creator = #{creator,jdbcType=BIGINT},
-        creationtime = #{creationtime,jdbcType=CHAR},
+--         creator = #{creator,jdbcType=BIGINT},
+--         creationtime = #{creationtime,jdbcType=CHAR},
         modifier = #{modifier,jdbcType=BIGINT},
-        modifytime = #{modifytime,jdbcType=CHAR},
+        modifytime = now(),
         pk_group = #{pkGroup,jdbcType=CHAR},
         pk_org = #{pkOrg,jdbcType=CHAR},
-        dr = #{dr,jdbcType=INTEGER},
-        ts = #{ts,jdbcType=CHAR},
+--         dr = #{dr,jdbcType=INTEGER},
+        ts = now(),
         vdef1 = #{vdef1,jdbcType=VARCHAR},
         vdef2 = #{vdef2,jdbcType=VARCHAR},
         vdef3 = #{vdef3,jdbcType=VARCHAR},
         vdef4 = #{vdef4,jdbcType=VARCHAR},
         vdef5 = #{vdef5,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
     </update>
 
     <update id="updateStatusById" parameterType="com.yonyou.energy.contract.domain.ContractPu">
@@ -223,7 +224,7 @@
         pk_group = #{pkGroup,jdbcType=CHAR},
         pk_org = #{pkOrg,jdbcType=CHAR},
         dr = #{dr,jdbcType=INTEGER},
-        ts = #{ts,jdbcType=CHAR},
+        ts = now(),
         vdef1 = #{vdef1,jdbcType=VARCHAR},
         vdef2 = #{vdef2,jdbcType=VARCHAR},
         vdef3 = #{vdef3,jdbcType=VARCHAR},
